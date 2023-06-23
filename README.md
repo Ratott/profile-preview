@@ -1,2 +1,2 @@
 # profile-preview
-steam profile background previewer
+Steam profile background preview extension
