@@ -30,7 +30,7 @@ if(!textarea) {
 parent.firstElementChild.style.height = "79px";
 
 // Fill in input on loading
-const bg_div = document.getElementById("responsive_page_template_content").lastElementChild;
+const bg_div = document.getElementById("responsive_page_template_content").querySelector(".profile_page");
 currentBackground = window.getComputedStyle(bg_div).backgroundImage;
 node.value = String(currentBackground).replace("url(\"","").replace("\")","");
 
