@@ -62,11 +62,8 @@ if(bg_div){
 }
 
 function setBackground(link){
-    const fileExtension = link.substr(link.lastIndexOf('.')).toLowerCase();
-    if(fileExtension == '.png' || fileExtension == '.jpg' || fileExtension == '.jpeg'){
-        bg_div.style.backgroundImage = "url(\"" + link + "\")";
-        bg_div_animated.style.display = "none";
-    } else if(fileExtension == '.webm' || fileExtension == '.mp4'){
+    const fileExtension = "." + getFileExtension(link);
+    if(fileExtension == '.webm' || fileExtension == '.mp4'){
         bg_div_animated.style.display = "";
         bg_div_animated.firstElementChild.pause();
         srcwebm = bg_div_animated.querySelector('[type="video/webm"]');
@@ -81,7 +78,11 @@ function setBackground(link){
         bg_div_animated.firstElementChild.load();
         bg_div_animated.firstElementChild.play();
         bg_div.style.backgroundImage = "";
-    }
+    } else {
+        bg_div.style.backgroundImage = "url(\"" + link + "\")";
+        bg_div.style.backgroundSize = "contain";
+        bg_div_animated.style.display = "none";
+        }
 }
 
 // ChatGPT generated B)
@@ -120,3 +121,21 @@ function createDivs(){
 
     bg_div.insertBefore(divElement,bg_div.firstChild);
 }
+
+function getFileExtension(link) {
+    const lastDotIndex = link.lastIndexOf('.');
+    const queryStringIndex = link.lastIndexOf('?');
+  
+    if (lastDotIndex === -1) {
+      return ''; // No file extension found
+    }
+  
+    let fileExtension;
+    if (queryStringIndex === -1 || lastDotIndex > queryStringIndex) {
+      fileExtension = link.substring(lastDotIndex + 1).toLowerCase();
+    } else {
+      fileExtension = link.substring(lastDotIndex + 1, queryStringIndex).toLowerCase();
+    }
+  
+    return fileExtension;
+  }

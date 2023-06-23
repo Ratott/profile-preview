@@ -2,7 +2,7 @@
 
     "manifest_version": 2,
     "name": "Steam background preview",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "homepage_url":"https://github.com/Ratott/profile-preview",
   
     "description": "Steam profile background preview extension, adds a bar to the top bar of the steam page to change the background of your profile easier and quicker.",
