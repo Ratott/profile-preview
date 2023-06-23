@@ -1,58 +1,63 @@
-// input box
-const node = document.createElement("input");
-node.type = "text";
-node.name = "a";
-node.id = "background_area";
-node.style.width = "75%";
-node.onclick = function () {
-    this.select();
-}
-// label for input box
-const label = document.createElement('label');
-label.textContent = 'Background:';
-label.for="background_area";
-label.style.userSelect = "none";
-
-// check if input is already made 
-const parent = document.getElementById("global_header"); 
-const textarea = parent.querySelector('#background_area');
-if(!textarea) {
-    const div = document.createElement("div");
-    div.style.display = "flex";
-    div.style.marginLeft = "77%";
-    div.style.paddingBottom = "5px";
-    parent.appendChild(div);
-    div.appendChild(label);
-    div.appendChild(node);
-}
-
-// change global header height
-parent.firstElementChild.style.height = "79px";
-
-// Fill in background
+// checks if profile page and not other pages like /profiles/.../edit or /id/.../games
+// so this extension does nothing if it's not your profile page
 const bg_div = document.getElementById("responsive_page_template_content").querySelector(".profile_page");
-bg_div_animated = bg_div.querySelector(".profile_animated_background");
-currentBackground = window.getComputedStyle(bg_div).backgroundImage;
-if(currentBackground != "none") {
-    node.value = String(currentBackground).replace("url(\"","").replace("\")","");
-    createDivs();
+if(bg_div){
+
+    // input box
+    const node = document.createElement("input");
+    node.type = "text";
+    node.name = "a";
+    node.id = "background_area";
+    node.style.width = "75%";
+    node.onclick = function () {
+        this.select();
+    }
+    // label for input box
+    const label = document.createElement('label');
+    label.textContent = 'Background:';
+    label.for="background_area";
+    label.style.userSelect = "none";
+
+    // check if input is already made 
+    const parent = document.getElementById("global_header"); 
+    const textarea = parent.querySelector('#background_area');
+    if(!textarea) {
+        const div = document.createElement("div");
+        div.style.display = "flex";
+        div.style.marginLeft = "77%";
+        div.style.paddingBottom = "5px";
+        parent.appendChild(div);
+        div.appendChild(label);
+        div.appendChild(node);
+    }
+
+    // change global header height
+    parent.firstElementChild.style.height = "79px";
+
+    // Fill in background
     bg_div_animated = bg_div.querySelector(".profile_animated_background");
-}  
-else {
-    node.value = bg_div_animated.firstElementChild.firstElementChild.src;
-}
+    currentBackground = window.getComputedStyle(bg_div).backgroundImage;
+    if(currentBackground != "none") {
+        node.value = String(currentBackground).replace("url(\"","").replace("\")","");
+        createDivs();
+        bg_div_animated = bg_div.querySelector(".profile_animated_background");
+    }  
+    else {
+        node.value = bg_div_animated.firstElementChild.firstElementChild.src;
+    }
 
 
-// On new link, change background
-node.onkeyup = function(){
-    if(isValidLink(node.value)){
-        label.textContent = 'Background:';
-        label.style.color = "";
-        setBackground(node.value);
-    } 
-    else{
-        label.textContent = "Not a valid link!";
-        label.style.color = "red";
+    // On new link, change background
+    node.onkeyup = function(){
+        if(isValidLink(node.value)){
+            label.textContent = 'Background:';
+            label.style.color = "";
+            setBackground(node.value);
+        } 
+        else{
+            label.textContent = "Not a valid link!";
+            label.style.color = "red";
+        }
     }
 }
 
